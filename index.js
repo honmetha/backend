@@ -6,7 +6,10 @@ const app = express()
 db.sequelize.sync({alter:true}).then(()=>{
 
   app.get('/getAllUser',(req,res)=>{
-    res.send("hello")
+    db.user.findAll()
+    .then(result=>{
+      res.send(result)
+    })
   })
 
   app.listen(8080,()=>{
