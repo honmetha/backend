@@ -1,16 +1,15 @@
 const express = require('express')
 const db = require('./models')
+const bodyParser = require('body-parser')
+const userService = require('./services/user')
 
 const app = express()
 
-db.sequelize.sync({alter:true}).then(()=>{
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded( { extended: true }));
 
-  app.get('/getAllUser',(req,res)=>{
-    db.user.findAll()
-    .then(result=>{
-      res.send(result)
-    })
-  })
+db.sequelize.sync({ alter:true }).then(()=>{
+  userService(app, db)
 
   app.listen(8080,()=>{
     console.log('Server is running')
