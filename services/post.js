@@ -1,6 +1,6 @@
 module.exports = (app, db) => {
   app.get('/getAllPost', (req, res) => {
-    db.user.findAll()
+    db.post.findAll()
     .then(result => {
       res.send(result)
     })
@@ -11,7 +11,7 @@ module.exports = (app, db) => {
   })
 
   app.post('/createPost', (req, res) => {
-    db.user.create({
+    db.post.create({
       message: req.body.message,
       img: req.body.img
     })
