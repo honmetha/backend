@@ -40,6 +40,9 @@ module.exports = (app, db) => {
           id: user.id,
           role: user.role,
           name: user.name,
+          profilepic: user.profilepic,
+          firstname: user.firstname,
+          lastname: user.lastname
         }, config.jwtOptions.secretOrKey, {
           expiresIn: 3600,
         });
