@@ -14,6 +14,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( { extended: true }));
 app.use(cors())
 
+require('./config/passport/passport')
+
 db.sequelize.sync({ alter:true }).then(()=>{
   userService(app, db)
   postService(app, db)

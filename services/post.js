@@ -1,3 +1,5 @@
+const passport = require('passport')
+
 module.exports = (app, db) => {
   app.get('/getAllPost', (req, res) => {
     db.post.findAll({
@@ -15,10 +17,11 @@ module.exports = (app, db) => {
     })
   })
 
-  app.post('/createPost', (req, res) => {
+  app.post('/createPost', passport.authenticate('jwt', { session: false }) ,(req, res) => {
     if (!req.files) {
       db.post.create({
         message: req.body.message,
+        user_id: req.user.id
       })
       .then(result => {
         res.status(201).send(result)
@@ -36,7 +39,8 @@ module.exports = (app, db) => {
       console.log(req.body.message)
       db.post.create({
         message: req.body.message,
-        img: `http://localhost:8080/${pictureName}.jpeg`
+        img: `http://localhost:8080/${pictureName}.jpeg`,
+        user_id: req.user.id
       })
       .then(result => {
         res.status(201).send(result)
